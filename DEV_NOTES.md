@@ -22,3 +22,5 @@
 7. `import 'firebase/firestore';` -> for database
 8. Initialize storage and firestore.
 9. Export services to use in other components `export { projectStorage, projectFirestore }`
+10. Set up firebase database in firebase -> Database -> Create database -> Start in test mode
+11. Start storage service in firebase -> Storage -> Get Started. Change storage rules so we can easily upload images without authentication. Remove `:if request.auth != null` from rules.
