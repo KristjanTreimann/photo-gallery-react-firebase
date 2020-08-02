@@ -24,3 +24,11 @@
 9. Export services to use in other components `export { projectStorage, projectFirestore }`
 10. Set up firebase database in firebase -> Database -> Create database -> Start in test mode
 11. Start storage service in firebase -> Storage -> Get Started. Change storage rules so we can easily upload images without authentication. Remove `:if request.auth != null` from rules.
+
+## Upload form
+
+1. New file in _comps_/UploadForm.js
+2. Create react component including form and export it.
+3. Import UploadForm in App.js.
+4. Add onChange handler to input in UploadForm.js to react Choose File button. Use the useState hook to store file in local state.
+5. Create error and typecheck. If image uploads show image name, else show error.
