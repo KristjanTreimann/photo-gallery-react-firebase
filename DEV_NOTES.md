@@ -32,3 +32,10 @@
 3. Import UploadForm in App.js.
 4. Add onChange handler to input in UploadForm.js to react Choose File button. Use the useState hook to store file in local state.
 5. Create error and typecheck. If image uploads show image name, else show error.
+
+## Firebase Storage
+
+To communicate with firebase storage we need to use firebase storage sdk.  
+Create a custom hook to handle fire upload and firebase storage.  
+Hook in the react is just a way to create a small chunk of reusable code and then those hooks can be used in whatever components need them.
+New folder in src/_hooks_ and inside **useStorage.js**
