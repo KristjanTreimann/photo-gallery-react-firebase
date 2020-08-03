@@ -1,7 +1,7 @@
 // import react hooks
 import { useState, useEffect } from 'react';
-// import projectStorage
-import { projectStorage } from '../firebase/config';
+// import projectStorage, projectFirestore - for images
+import { projectStorage, projectFirestore, timeStamp } from '../firebase/config';
 
 // takes in file we're uploading
 const useStorage = (file) => {
@@ -14,11 +14,13 @@ const useStorage = (file) => {
 
   useEffect(() => {
     // references where the file saves
-    const storgeRef = projectStorage.ref(file.name); // sets file ref in default location with current file name
+    const storageRef = projectStorage.ref(file.name); // sets file ref in default location with current file name
 
+    // reference to a collection where we want to save document
+    const collectionRef = projectFirestore.collection('images');
     // take a file and put it in the reference
     // .on whenever state on upload changes, then fire a function snapshot
-    storgeRef.put(file).on(
+    storageRef.put(file).on(
       'state_changed',
       (snap) => {
         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -28,7 +30,11 @@ const useStorage = (file) => {
         setError(err);
       },
       async () => {
-        const url = await storgeRef.getDownloadURL();
+        const url = await storageRef.getDownloadURL();
+        // generate timestamp
+        const createdAt = timeStamp();
+        // add url to collection {url:url} same as {url}
+        collectionRef.add({ url, createdAt });
         setUrl(url);
       }
     );

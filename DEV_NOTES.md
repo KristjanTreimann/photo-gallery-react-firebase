@@ -51,3 +51,18 @@ New folder in src/_hooks_ and inside **useStorage.js**
 7. Now in **Progress.js** we want to use the `progress` value to create a ProgressBar. Percentage value of progress could indicate the width of the progressbar. Use inline styling to set width equal to progress value -> `<div className="progress-bar" style={{ width: progress + '%' }}>`
 8. Add styling to progress bar in **index.css**
 9. Remove progress bar after file has uploaded. Set the value of file back to null when we have an url. Url is received after the file has uploaded. Use useEffect to fire a function when url value changes and set file value to null.
+
+## Store image url to a database collection
+
+Currently we have a functionality to store our images to database, but now we want cycle through of these images and show them on the screen.  
+To do that we need to store url we got from uploading the image inside a database.
+
+1. Since we are interacting with the `firestore database` we need to import it from the _firebase_/**config.js** into **useStorage.js**.
+2. Create new referance -> `const collectionRef = projectFirestore.collection('images');`-> projectFirestore - which we use when we want to interact with firebase database, -> collection('name') is a built in method to reference to a specific collection. Takes in collection name as argument. In firebase if collection doesnt exist it gets created when we save document to it.
+3. In useEffect hook use `collectionRef.add({})` and pass in an object which represents this document. {url : url} -> first prop. is url and we set it to url we got `const url = await storageRef.getDownloadURL();` . We can shorten {url : url} to {url}. Next we want to add a `{createdAt}´ which is basically a timestamp when the document was created so in later we can order the documents by these timestamps and show them chronologically on the screen.
+4. We need to create a timestamp. Best way to do that with firebase is to create a `firebase server timestamp` inside _firebase_/**config.js** -> add `const timeStamp = firebase.firestore.FieldValue.serverTimestamp;` . Export timestamp function and import to **useStorage.js**. Set const createdAt to timeStamp function and invoke it. `const createdAt = timeStamp()`
+5. Now check from `Firebase`if database collection images was created with document inside containing fields like **createdAt:** and **url:**
+6. Delete any image uploaded to storage, because they dont have the documents associated with them inside the firestore.
+7. Upload new image and check from firebase if its a) available in storage b) in database has a document inside images collection.
+
+Read more from Firestore [docs](https://firebase.google.com/docs/firestore)!

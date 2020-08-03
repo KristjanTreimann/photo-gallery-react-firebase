@@ -21,4 +21,7 @@ const projectStorage = firebase.storage();
 // Initalize firestore service
 const projectFirestore = firebase.firestore();
 
-export { projectStorage, projectFirestore };
+// Timestamp function
+const timeStamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export { projectStorage, projectFirestore, timeStamp };
