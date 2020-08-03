@@ -39,3 +39,15 @@ To communicate with firebase storage we need to use firebase storage sdk.
 Create a custom hook to handle fire upload and firebase storage.  
 Hook in the react is just a way to create a small chunk of reusable code and then those hooks can be used in whatever components need them.
 New folder in src/_hooks_ and inside **useStorage.js**
+
+## Progress Bar
+
+1. Create new component for progress bar in _comps_/**ProgressBar.js**
+2. Nest it inside `div` with `{file && <ProgressBar />}` in **UploadForm.js**. -> If file selected output progressbar. Right side of && is only executed if left side is true.
+3. Pass file to the ProgressBar because we're using useStorage hook inside that component. To do that add prop `file={file}`. Also pass the prop `setFile={setFile}` function so that when the progress is complete we can set file back to null and then the progress bar doesnt show again.
+4. Inside ProgressBar we need to use the `useStorage` hook to upload a file. First we need the props we passed into the progress bar and use destructuring to get url and progress.
+5. In **ProgressBar.js** we want to get url and process values using destructuring we set it equal to useStorage hook and pass in file, then in **useStorage.js** useStorage function fires useEffect hook which takes the file, creates a reference and tries to upload a file. At that time we get values back like progress and when upload finishes we get url where the image was stored. console.log(url, process) and try to upload a file to see if it shows up in Chrome console.
+6. In Firebase check storage to see if image you uploaded exists.
+7. Now in **Progress.js** we want to use the `progress` value to create a ProgressBar. Percentage value of progress could indicate the width of the progressbar. Use inline styling to set width equal to progress value -> `<div className="progress-bar" style={{ width: progress + '%' }}>`
+8. Add styling to progress bar in **index.css**
+9. Remove progress bar after file has uploaded. Set the value of file back to null when we have an url. Url is received after the file has uploaded. Use useEffect to fire a function when url value changes and set file value to null.

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import ProgressBar from './ProgressBar';
 
 const UploadForm = () => {
   // Piece of state called file, uses function setFile to update file
   // Set inital to null because we dont select the file
-  const [file, setfile] = useState(null);
+  const [file, setFile] = useState(null);
 
   // error in state
   const [error, setError] = useState(null);
@@ -17,12 +18,12 @@ const UploadForm = () => {
 
     // check if file selected & is allowed filetype and store in local state
     if (selected && types.includes(selected.type)) {
-      setfile(selected);
+      setFile(selected);
       // Reset error if wrong filetype was selected before
       setError('');
     } else {
       // reset the value
-      setfile(null);
+      setFile(null);
       // error
       setError('Please select an image file (png or jpeg)');
     }
@@ -30,10 +31,14 @@ const UploadForm = () => {
 
   return (
     <form>
-      <input type='file' onChange={changeHandler} />
+      <label>
+        <input type='file' onChange={changeHandler} />
+        <span>+</span>
+      </label>
       <div className='output'>
         {error && <div className='error'>{error}</div>}
         {file && <div>{file.name}</div>}
+        {file && <ProgressBar file={file} setFile={setFile} />}
       </div>
     </form>
   );
