@@ -77,3 +77,20 @@ Now we want to set up a connection between our application and firestore, so we 
 3. Use the hook in **ImageGrid.js**. Use destructuring to get the docs and pass in collection name to useFirestore().Check with console.log(docs) if it shows up in console.
 4. Display images - { docs - to see if docs exists, docs.map() - cycle through}
 5. Add styling to images.
+
+## Creating a modal
+
+Make a modal so that when clicked on image it opens up in full size.
+
+1. New component in _comps_/**Modal.js**
+2. Modal img takes in src of any image we click on website
+3. Create a state inside of root component and pass function _setSelectedImg_ down to ImageGrid as a prop.  
+   Accept that prop in **ImageGrid.js** using destructuring in `const ImageGrid = ({ setSelectedImg })`.  
+   Attach a click event to `<div className="img-wrap" key={doc.id}>` because we output this div for each individual image.  
+   Use `onClick={() => setSelectedImg(doc.url)` -> onClick is equal to a function that invokes setSelectedImage() and pass in a value into this and this value becomes selectedImg state value in **App.js**.  
+   We want to pass through URL of the image we want to show. At the moment this comes from `<img src={doc.url} alt="uploaded pic" />` as `doc.url`. So now whenever we click on image we're updating the value in selectedImg in **App.js** with url of this image we clicked on.
+4. Pass selectedImg from **App.js** to `<Modal selectedImg={selectedImg}/>` as prop and accept it as prop by destructuring in **Modal.js**. Now the image src={selectedImg}. When clicking on picture it should show up in screen as extra image below.
+5. Add modal styling in **index.css**. We create style for backdrop so the image will be highlighted and background will be faded a bit.
+6. We also need to add a check in **App.js** to see if image has been loaded and then we can show the modal properly, otherwise it may not work because it thinks selectedImg value is null after refresh. To do that add a condition for modal -> `{selectedImg && <Modal selectedImg={selectedImg} />}`
+7. To close the modal we need to add a click event handler to backdrop, meaning when we click on backdrop it closes the modal. We need to use setSelectedImg method and set it to null again. That way modal will close because we show it only when image value exists. In **App.js** pass in prop setSelectedImg to ´<Modal />´ and accept it in **Modal.js**. Then in **Modal.js** add event listener and set it equal to a function called handleClick -> `onClick={handleClick}`. Create function handleClick what takes in the event object and inside that use function setSelectedImage and set it to null -> `const handleClick = (e) => { setSelectedImg(null); };`
+8. We need to check event target object because we dont want to close model when clicking on a picture. Use `e.target.classList.contains('backdrop')` to select correct div on which clicking closes model.
