@@ -66,3 +66,14 @@ To do that we need to store url we got from uploading the image inside a databas
 7. Upload new image and check from firebase if its a) available in storage b) in database has a document inside images collection.
 
 Read more from Firestore [docs](https://firebase.google.com/docs/firestore)!
+
+## Firestore hook && image grid
+
+Now we want to set up a connection between our application and firestore, so we can actively listen for documents being added into collection. Then we can retrieve these documents, cycle through them in a react component and output an image for each one of them using url propery stored in firebase. Also order them by date by using createdAt property.
+
+1. Create a component to cycle through firebase collection 'images' documents and output each image using url. Create new ImageGrid component in _comps_/**ImageGrid.js** and import it to **App.js**.
+2. To get url from documents we create a new hook. In _hooks_ add new file called **useFirestore.js** and create hook inside. We set `projectFirestore.collection.....` equal to const unsub and then invoke it with `return () => unsub()` to stop listening collection changes.
+   We want to do that if we unmount the ImageGrid component which is what is going to be using this hook to get the data. Because if we're not showing that component, if it unmounts then we dont need those images anymore.
+3. Use the hook in **ImageGrid.js**. Use destructuring to get the docs and pass in collection name to useFirestore().Check with console.log(docs) if it shows up in console.
+4. Display images - { docs - to see if docs exists, docs.map() - cycle through}
+5. Add styling to images.

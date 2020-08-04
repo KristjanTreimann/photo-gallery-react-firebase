@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 
 :root {
-  --primary: #efb6b2;
+  --white: #fff;
+  --primary: #4b91e2;
   --secondary: #4e4e4e;
   --error: #ff4a4a;
+  --logo: linear-gradient(6deg, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
 }
 
 /* base styles & title */
@@ -18,11 +20,14 @@ body {
   /*auto from left and right -  to center the column */
 }
 
-.title h1 {
-  color: var(--primary);
+h1 {
+  text-transform: uppercase;
+  background: var(--logo);
   font-size: 1.2rem;
   letter-spacing: 2px;
   font-weight: normal;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .title h2,
@@ -51,18 +56,14 @@ label {
   display: block;
   width: 30px;
   height: 30px;
-  border: 1px solid var(--primary);
-  border-radius: 50%;
   margin: 10px auto;
   line-height: 30px;
-  color: var(--primary);
   font-weight: bold;
   font-size: 24px;
 }
 
 label:hover {
-  background: var(--primary);
-  color: #fff;
+  cursor: pointer;
 }
 
 .output {
@@ -79,4 +80,91 @@ label:hover {
   height: 5px;
   background: var(--primary);
   margin-top: 20px;
+}
+
+/* image grid styles */
+.img-grid {
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+/* individual items that surround the image */
+.img-wrap {
+  /* image doesnt appear beyond that */
+  overflow: hidden;
+  height: 0;
+  /* padding controls height, will always be perfectly square regardless of width */
+  padding: 50% 0;
+  /* relative because .img-wrap img is absolute */
+  position: relative;
+  opacity: 0.8;
+
+}
+
+.img-wrap img {
+  /* atleast the full space of the square */
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 150%;
+  position: absolute;
+  /* starts from top left corner */
+  top: 0;
+  left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* gradient border */
+.gradient-border {
+  --borderWidth: 2px;
+  background: var(--white);
+  position: relative;
+  border-radius: var(--borderWidth);
+}
+
+.gradient-border:hover {
+  background: none;
+  color: var(--white);
+}
+
+.gradient-border:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
