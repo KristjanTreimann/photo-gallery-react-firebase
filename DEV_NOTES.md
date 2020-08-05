@@ -105,3 +105,12 @@ We're using animation package for react - [Framer Motion](https://framer.com/mot
 4. Add .motion to img so when adding new images they fade in slightly `<motion.img src={doc.url} initial={{ opacity: 0}} animate={{opacity: 1}} transition={{ delay: 1 }} alt="uploaded pic" />` -> initial opacity is 0, then it animates to 1 and animation starts after 1s.
 5. Add .motion animation to progress bar in **ProgressBar.js** to make it smoother.
 6. Add .motion to modal in **Modal.js** for backdrop change opacity smoothly and for image pop down from the top. Use viewport height to do so.
+
+## To do
+
+1. Delete images
+2. Add authentication
+3. Add map with pinpoints
+4. Add place and description
+5. Add filter
+6. Deploy
