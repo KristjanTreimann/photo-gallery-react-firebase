@@ -1,3 +1,11 @@
+### Photo gallery app using React & Firebase
+
+Check [DEV_NOTES.md](DEV_NOTES.md) for recreating instructions. :rocket:
+
+![gif](public/firegram.gif)
+
+Check out [screenshot](public/firegram_screen.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
