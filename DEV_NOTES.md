@@ -94,3 +94,14 @@ Make a modal so that when clicked on image it opens up in full size.
 6. We also need to add a check in **App.js** to see if image has been loaded and then we can show the modal properly, otherwise it may not work because it thinks selectedImg value is null after refresh. To do that add a condition for modal -> `{selectedImg && <Modal selectedImg={selectedImg} />}`
 7. To close the modal we need to add a click event handler to backdrop, meaning when we click on backdrop it closes the modal. We need to use setSelectedImg method and set it to null again. That way modal will close because we show it only when image value exists. In **App.js** pass in prop setSelectedImg to ´<Modal />´ and accept it in **Modal.js**. Then in **Modal.js** add event listener and set it equal to a function called handleClick -> `onClick={handleClick}`. Create function handleClick what takes in the event object and inside that use function setSelectedImage and set it to null -> `const handleClick = (e) => { setSelectedImg(null); };`
 8. We need to check event target object because we dont want to close model when clicking on a picture. Use `e.target.classList.contains('backdrop')` to select correct div on which clicking closes model.
+
+## Adding animations - framer motion
+
+We're using animation package for react - [Framer Motion](https://framer.com/motion)
+
+1. Install using `npm install framer-motion`
+2. To use motion on react elements we have to import it and use `motion.` before tag name. For example if we want to add motion to div element we add `<motion.div> </motion.div>`
+3. Let's add motion to images. In **ImageGrid.js** we select corresponding div element and add .motion to it. Now we can add motion attributes to that element. We use `whileHover` attribute and set that equal to an object and inside object we can specify some css style attributes. `layout` - whenever the motion element moves position in the page it animates to the new position. When we add new image all other images have to rearrange and move on page - `layout` attr gives animation to that.
+4. Add .motion to img so when adding new images they fade in slightly `<motion.img src={doc.url} initial={{ opacity: 0}} animate={{opacity: 1}} transition={{ delay: 1 }} alt="uploaded pic" />` -> initial opacity is 0, then it animates to 1 and animation starts after 1s.
+5. Add .motion animation to progress bar in **ProgressBar.js** to make it smoother.
+6. Add .motion to modal in **Modal.js** for backdrop change opacity smoothly and for image pop down from the top. Use viewport height to do so.
